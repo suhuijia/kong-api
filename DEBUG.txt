@@ -1,0 +1,34 @@
+ sudo apt-get install golang-go
+
+ 配置环境变量
+vim ~/.bashrc
+添加
+export GOROOT=/usr/local/go
+export GOPATH=/home/nd/program_develop/go_demo  （项目路径）  
+export PATH=$PATH:$GOPATH:/usr/local/go/bin
+保存并使生效
+source ~/.bashrc
+
+
+由于go版本太低，使用最新的版本进行更新之后，发现运行 xxx.go 代码也不能进行编译成功，报错为：
+
+# runtime
+
+/usr/local/go/src/runtime/cgo.go:9:3: //go:cgo_export_static main only allowed in cgo-generated code
+
+
+解决方法：
+
+运行 $which go
+
+/usr/bin/go
+
+发现/usr/bin/go是个软链接，链接的还是之前老版本的可执行文件，所以在/usr/bin路径下执行
+
+$ rm /usr/bin/go &&  rm /usr/bin/gofmt
+
+$  ln -s /usr/local/go/bin/go go
+
+$ ln -s /usr/local/go/bin/gofmt gofmt
+
+问题解决！
